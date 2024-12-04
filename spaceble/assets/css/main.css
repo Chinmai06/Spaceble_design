@@ -1745,7 +1745,7 @@ section,
 
 .form-overlay {
   position: absolute;
-  top: -160px; /* Offset from the top */
+  top: -180px; /* Offset from the top */
   
   background-color:rgba(73, 74, 74, 0.7);
   padding: 15px;
