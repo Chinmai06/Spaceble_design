@@ -158,7 +158,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  /* max-height: 36px; */
   margin-right: 8px;
 }
 
@@ -835,7 +835,7 @@ section,
 
 .hero h2 {
   margin: 0;
-  font-size: 56px;
+  font-size: 30px;
   font-weight: 700;
   font-family: var(--nav-font);
 }
@@ -1745,7 +1745,7 @@ section,
 
 .form-overlay {
   position: absolute;
-  top: -100px; /* Offset from the top */
+  top: -180px; /* Offset from the top */
   
   background-color:rgba(73, 74, 74, 0.7);
   padding: 15px;
