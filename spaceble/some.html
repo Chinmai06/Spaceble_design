@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form with Elastic Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .background-image {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .form-overlay {
+            position: absolute;
+            top: 60px; /* Offset from the top */
+            right: 10%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-next-back-submit {
+            background-color: #fedd58 !important;
+            color: #000 !important;
+            border: none !important;
+        }
+
+        .btn-next-back-submit:hover {
+            background-color: #e0c04a !important;
+            color: #000 !important;
+        }
+
+        .btn-selected {
+            background-color: #fedd58 !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="position-relative">
+        <!-- Background Image -->
+        <img src="home_1.jpg" alt="Background Image" class="background-image">
+
+        <!-- Step 1: Floorplan -->
+        <div id="step1" class="form-overlay">
+            <h2 class="text-center mb-4">Select Your Floorplan</h2>
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-warning floorplan-option" data-option="1 BHK">1 BHK</button>
+                <button type="button" class="btn btn-outline-warning floorplan-option" data-option="2 BHK">2 BHK</button>
+                <button type="button" class="btn btn-outline-warning floorplan-option" data-option="3 BHK">3 BHK</button>
+                <button type="button" class="btn btn-outline-warning floorplan-option" data-option="3+ BHK">3+ BHK</button>
+            </div>
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-next-back-submit" id="nextToPurpose" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Purpose -->
+        <div id="step2" class="form-overlay hidden">
+            <h2 class="text-center mb-4">Select Purpose</h2>
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-warning purpose-option" data-option="Move In">Move In</button>
+                <button type="button" class="btn btn-outline-warning purpose-option" data-option="Rent Out">Rent Out</button>
+                <button type="button" class="btn btn-outline-warning purpose-option" data-option="Renovate">Renovate</button>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-next-back-submit" id="backToFloorplan">Back</button>
+                <button class="btn btn-next-back-submit" id="nextToRequirements" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Requirements -->
+        <div id="step3" class="form-overlay hidden">
+            <h2 class="text-center mb-3">Your Requirements</h2>
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Kitchen</span>
+                    <div class="quantity-box kitchen-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('kitchen', -1)">-</button>
+                        <span id="kitchen" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('kitchen', 1)">+</button>
+                    </div>
+                    <!----<input type="number" min="0" value="0" class="form-control w-25 kitchen-input">-->
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Wardrobe</span>
+                    <div class="quantity-box wardrobe-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('wardrobe', -1)">-</button>
+                        <span id="wardrobe" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('wardrobe', 1)">+</button>
+                    </div>
+                    <!---<input type="number" min="0" value="0" class="form-control w-25 wardrobe-input">--->
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Entertainment Unit</span>
+                    <div class="quantity-box entertainment-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('entertainment', -1)">-</button>
+                        <span id="entertainment" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('entertainment', 1)">+</button>
+                    </div>
+                    <!---<input type="number" min="0" value="0" class="form-control w-25 entertainment-input">-->
+                </div>
+                <div class="d-flex justify-content-between align-items-center ">
+                    <span>Study Unit</span>
+                    <div class="quantity-box StudyUnit-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('StudyUnit', -1)">-</button>
+                        <span id="StudyUnit" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('StudyUnit', 1)">+</button>
+                    </div>
+                    <!--<input type="number" min="0" value="0" class="form-control w-25 entertainment-input">--->
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Crockery Unit</span>
+                    <div class="quantity-box Crockery-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('Crockery', -1)">-</button>
+                        <span id="Crockery" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('Crockery', 1)">+</button>
+                    </div>
+                    <!---<input type="number" min="0" value="0" class="form-control w-25 entertainment-input">-->
+                </div>
+                <div class="d-flex justify-content-between align-items-center ">
+                    <span>False Ceiling</span>
+                    <div class="quantity-box Falseceling-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('FalseCeiling', -1)">-</button>
+                        <span id="FalseCeiling" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('FalseCeiling', 1)">+</button>
+                    </div>
+                    <!---<input type="number" min="0" value="0" class="form-control w-25 entertainment-input">--->
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Pooja Unit</span>
+                    <div class="quantity-box PoojaUnit-input">
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('PoojaUnit', -1)">-</button>
+                        <span id="PoojaUnit" class="quantity-display">0</span>
+                        <button class="btn btn-outline-danger quantity-button" onclick="updateQuantity('PoojaUnit', 1)">+</button>
+                    </div>
+                    <!---<input type="number" min="0" value="0" class="form-control w-25 entertainment-input">-->
+                </div>
+
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-next-back-submit" id="backToPurpose">Back</button>
+                <button class="btn btn-next-back-submit" id="nextToForm">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Form -->
+        <div id="step4" class="form-overlay hidden">
+            <h2 class="text-center mb-3">Submit Your Details</h2>
+            <form id="detailsForm">
+                <div class="mb-2">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-2">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="mb-2">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" required>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-next-back-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="form-overlay hidden">
+            <h2 class="text-center mb-3">Submission Successful!</h2>
+            <p class="text-center">Thank you, <span id="submittedName"></span>. We will contact you at <span id="submittedEmail"></span>.</p>
+        </div>
+    </div>
+
+    <!-- SMTP.js -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="sentmail.js">
+    
+    </script>
+
+</body>
+</html>
