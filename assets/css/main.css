@@ -216,6 +216,9 @@ h6 {
 .index-page .header {
   --background-color: rgba(0, 0, 0, 0);
 }
+#index.service{
+  --background-color: rgba(0, 0, 0, 0.8);
+}
 
 /* Index Page Header on Scroll
 ------------------------------*/
@@ -747,7 +750,7 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 80px 0;
   scroll-margin-top: 80px;
   overflow: clip;
 }
